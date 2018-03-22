@@ -16,6 +16,7 @@ class ProfilesTest extends TestCase
         $user = factory(User::class)->create();
 
         $this->get(route('user.show', $user))
-            ->assertStatus(200);
+            ->assertStatus(200)
+            ->assertSee($user->name);
     }
 }
