@@ -50,7 +50,7 @@
                                 </a>
 
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item">Profil</a>
+                                    <a class="dropdown-item" href="{{ route('user.show', ['user' => auth()->user()]) }}">Profil</a>
                                     <hr class="dropdown-divider">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
