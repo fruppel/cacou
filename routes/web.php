@@ -19,3 +19,5 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/profile/{user}', 'UserController@show')->name('user.show');
+Route::get('/weight/{user}', 'WeightController@index')->middleware('auth');
+Route::post('/weight/{user}', 'WeightController@store')->middleware('auth');

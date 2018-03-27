@@ -34,7 +34,11 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto mt-1">
-                        <a class="nav-link" href="/weight">Gewicht</a>
+                        @if (auth()->check())
+                            <li class="{{ \Illuminate\Support\Facades\Request::is('weight/' . auth()->id()) ? 'active' : '' }}">
+                                <a class="nav-link " href="/weight/{{ auth()->id() }}">Gewicht</a>
+                            </li>
+                        @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->
