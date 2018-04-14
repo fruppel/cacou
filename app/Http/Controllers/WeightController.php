@@ -10,7 +10,14 @@ class WeightController extends Controller
 {
     public function index()
     {
-        return view('weight.index');
+        $weights = Weight::all()
+            ->sortBy('created_at')
+            ->where('user_id', auth()->id());
+
+        $graphData = $weights->pluck('weight', 'created_at');
+        $weights = $weights->sortByDesc('created_at');
+
+        return view('weight.index', compact('weights', 'graphData'));
     }
     
     public function store(Request $request)
