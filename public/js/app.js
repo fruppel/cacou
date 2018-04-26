@@ -65769,25 +65769,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    methods: {
+        fetchData: function fetchData() {
+            var _this = this;
 
-    props: ['labels', 'values'],
+            axios.get('/graphData/1').then(function (response) {
+                _this.render(response.data);
+            });
+        },
+        render: function render(data) {
+            var canvas = document.querySelector('#weight-chart').getContext('2d');
+            var chart = new __WEBPACK_IMPORTED_MODULE_0_chart_js___default.a(canvas, {
+                type: 'line',
+                data: {
+                    labels: Object.keys(data),
+                    datasets: [{
+                        label: 'Gewicht',
+                        data: Object.keys(data).map(function (key) {
+                            return data[key];
+                        })
+                    }]
+                }
+            });
+        }
+    },
 
     mounted: function mounted() {
-
-        var canvas = document.querySelector('#weight-chart').getContext('2d');
-
-        var data = {
-            labels: this.labels,
-
-            datasets: [{
-                data: this.values
-            }]
-        };
-
-        new __WEBPACK_IMPORTED_MODULE_0_chart_js___default.a(canvas, {
-            type: 'line',
-            data: data
-        });
+        this.fetchData();
     }
 });
 

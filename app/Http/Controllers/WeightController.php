@@ -5,19 +5,17 @@ namespace App\Http\Controllers;
 use App\Weight;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class WeightController extends Controller
 {
     public function index()
     {
         $weights = Weight::all()
-            ->sortBy('created_at')
+            ->sortByDesc('created_at')
             ->where('user_id', auth()->id());
 
-        $graphData = $weights->pluck('weight', 'created_at');
-        $weights = $weights->sortByDesc('created_at');
-
-        return view('weight.index', compact('weights', 'graphData'));
+        return view('weight.index', compact('weights'));
     }
     
     public function store(Request $request)
@@ -36,5 +34,16 @@ class WeightController extends Controller
         ]);
 
         return back();
+    }
+
+    public function graphData()
+    {
+        $data = Weight::select(DB::raw('DATE_FORMAT(created_at, "%d.%m.%Y") day, weight'))
+            ->orderBy('created_at')
+            ->where('user_id', auth()->id())
+            ->get()
+            ->pluck('weight', 'day');
+
+        return $data;
     }
 }

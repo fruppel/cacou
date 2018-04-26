@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="container">
-        <weight-chart :labels="{{ $graphData->keys() }}" :values="{{ $graphData->values() }}"></weight-chart>
+        <weight-chart></weight-chart>
 
         <form method="POST" action="/weight/{{ auth()->id() }}">
             @csrf
