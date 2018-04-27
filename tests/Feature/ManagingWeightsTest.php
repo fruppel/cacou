@@ -34,7 +34,7 @@ class ManagingWeightsTest extends TestCase
         $this->get($weightUrl)
             ->assertStatus(200);
 
-        $response = $this->post($weightUrl, [
+        $this->post($weightUrl, [
             'weight' => 90.5,
             'created_at' => Carbon::now(),
         ]);
