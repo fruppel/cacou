@@ -10,6 +10,9 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    public const GENDER_MALE = 'male';
+    public const GENDER_FEMALE = 'female';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -44,9 +47,27 @@ class User extends Authenticatable
      *
      * @return mixed
      */
-    public function getCurrentWeightAttribute()
+    public function getWeightAttribute(): float
     {
-        return $this->weights()->latest()->first()->weight;
+        return (float) $this->weights()->latest()->first()->weight;
+    }
+
+    /**
+     * Sets the gender of an user
+     *
+     * @param string $gender
+     *
+     * @return void
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function setGenderAttribute(string $gender): void
+    {
+        if (!in_array($gender, [self::GENDER_MALE, self::GENDER_FEMALE])) {
+            throw new \InvalidArgumentException('Unknown gender');
+        }
+
+        $this->gender = $gender;
     }
 
     /**
