@@ -45,6 +45,16 @@
                             </div>
                         </div>
 
+
+                        <div class="form-group row">
+                            <label for="height" class="col-md-4 col-form-label text-md-right">Gewicht</label>
+
+                            <div class="col-md-6">
+                                <input id="weight" type="number" step="1" min="0" class="form-control{{ $errors->has('weight') ? ' is-invalid' : '' }}" name="weight" value="{{ old('weight') }}" required>
+                                @include('common.form._errors', ['errors' => $errors, 'field' => 'weight'])
+                            </div>
+                        </div>
+
                         <div class="form-group row">
                             <label for="birthdate" class="col-md-4 col-form-label text-md-right">Geburtsdatum</label>
 

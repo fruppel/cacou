@@ -20,7 +20,11 @@
                 </tr>
                 <tr>
                     <td>Gewicht:</td>
-                    <td>{{ $user->currentWeight }} kg</td>
+                    <td>{{ $user->weight }} kg</td>
+                </tr>
+                <tr>
+                    <td>Grundumsatz:</td>
+                    <td>{{ round($bmr) }} kcal</td>
                 </tr>
             </table>
         </div>

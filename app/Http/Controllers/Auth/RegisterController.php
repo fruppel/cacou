@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use App\Weight;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -51,7 +52,8 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => 'required|string|max:255',
             'gender' => 'required|in:male,female',
-            'height' => 'required|integer',
+            'height' => 'required|integer|max:250',
+            'weight' => 'required|numeric|max:500',
             'birthdate' => 'required|date',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
@@ -66,7 +68,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'gender' => $data['gender'],
             'height' => $data['height'],
@@ -74,5 +76,12 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        Weight::create([
+            'weight' => $data['weight'],
+            'user_id' => $user->id
+        ]);
+
+        return $user;
     }
 }
