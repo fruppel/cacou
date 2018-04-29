@@ -30,9 +30,9 @@
             </tr>
             @foreach ($weights as $weight)
                 <tr>
-                    <td>{{ $weight->created_at }}</td>
-                    <td>{{ $weight->weight }}</td>
-                    <td></td>
+                    <td>{{ $weight->created_at->format('d.m.Y H:i') }}</td>
+                    <td>{{ number_format($weight->weight, 1, ',', '') }} kg</td>
+                    <td><i class="far fa-trash-alt"></i></td>
                 </tr>
             @endforeach
         </table>
