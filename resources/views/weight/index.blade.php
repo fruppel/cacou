@@ -22,19 +22,6 @@
             </div>
         </form>
 
-        <table class="table">
-            <tr>
-                <th>Datum</th>
-                <th>Gewicht</th>
-                <th>Aktionen</th>
-            </tr>
-            @foreach ($weights as $weight)
-                <tr>
-                    <td>{{ $weight->created_at->format('d.m.Y H:i') }}</td>
-                    <td>{{ number_format($weight->weight, 1, ',', '') }} kg</td>
-                    <td><i class="far fa-trash-alt"></i></td>
-                </tr>
-            @endforeach
-        </table>
+        <weight-table :weights="{{ $weights }}"></weight-table>
     </div>
 @endsection
