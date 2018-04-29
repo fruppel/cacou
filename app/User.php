@@ -67,7 +67,7 @@ class User extends Authenticatable
             throw new \InvalidArgumentException('Unknown gender');
         }
 
-        $this->gender = $gender;
+        $this->attributes['gender'] = $gender;
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Weight;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -9,6 +10,14 @@ use Illuminate\Support\Facades\DB;
 
 class WeightController extends Controller
 {
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $weights = Weight::all()
@@ -34,6 +43,25 @@ class WeightController extends Controller
         ]);
 
         return back();
+    }
+
+    /**
+     * Destroys a weight entry
+     *
+     * @param User $user
+     * @param Weight $weight
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws \Exception
+     */
+    public function destroy(User $user, Weight $weight)
+    {
+        $this->authorize('update', $weight);
+
+        $weight->delete();
+
+        return response(['status' => 'Reply deleted']);
     }
 
     public function graphData()

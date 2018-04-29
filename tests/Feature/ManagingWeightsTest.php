@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\User;
+use App\Weight;
 use Carbon\Carbon;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -23,7 +24,6 @@ class ManagingWeightsTest extends TestCase
     }
 
     /** @test */
-
     public function an_user_can_add_weight()
     {
         $user = factory(User::class)->create();
@@ -39,5 +39,38 @@ class ManagingWeightsTest extends TestCase
             'created_at' => Carbon::now(),
         ]);
     }
+
+    /** @test */
+    public function a_weight_entry_can_be_deleted()
+    {
+        $user = factory(User::class)->create();
+
+        $this->actingAs($user);
+
+        $weight = factory(Weight::class)->create(['user_id' => $user->id]);
+        $allWeights = Weight::all();
+
+        $this->assertEquals(1, $allWeights->count());
+
+        $this->delete('/weight/' . $user->id . '/' . $weight->id);
+
+        $this->assertEquals(0, Weight::all()->count());
+    }
+
+    /** @test */
+    public function a_user_can_only_delete_his_weight()
+    {
+        $this->withExceptionHandling();
+
+        $user = factory(User::class)->create(['id' => 1]);
+        $this->actingAs($user);
+
+        $weight = factory(Weight::class)->create(['user_id' => 2]);
+
+        $this->delete('/weight/1/' . $weight->id)->assertStatus(403);
+
+        $this->assertEquals(1, Weight::all()->count());
+    }
+
 
 }
