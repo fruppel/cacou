@@ -1,5 +1,5 @@
 <template>
-    <canvas id="weight-chart" height="75"></canvas>
+    <canvas id="weight-chart-2" height="75"></canvas>
 </template>
 
 <script>
@@ -14,20 +14,48 @@
                 });
             },
 
-            render(data) {
-                const canvas = document.querySelector('#weight-chart').getContext('2d');
-                const chart = new Chart(canvas, {
+            render(input) {
+                const min = Number.parseInt(input.minWeight) - 2;
+                const max = Number.parseInt(input.maxWeight) + 2;
+                const step = Number.parseInt((max - min) / 10);
+
+                const canvas = document.querySelector('#weight-chart-2').getContext('2d');
+
+                new Chart(canvas, {
                     type: 'line',
                     data: {
-                        labels: Object.keys(data),
-                        datasets: [
-                            {
-                                label: 'Gewicht',
-                                data: Object.keys(data).map(key => data[key])
-                            }
-                        ]
+                        datasets: [{
+                            label: 'Gewicht',
+                            data: input.data,
+                            lineTension: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            xAxes: [{
+                                type: 'time',
+                                display: true,
+                                distribution: 'linear',
+                                time: {
+                                    unit: 'day',
+                                    displayFormats: {
+                                        day: 'DD.MM.YYYY'
+                                    }
+                                }
+                            }],
+                            yAxes: [{
+                                ticks: {
+                                    min: min,
+                                    max: max,
+                                    stepSize: step
+                                }
+                            }]
+                        }
                     }
                 });
+
+
             }
         },
 
