@@ -6,7 +6,8 @@ use App\User;
 use App\Weight;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Response;
+use Illuminate\Support\Collection;
 
 class WeightController extends Controller
 {
@@ -64,14 +65,15 @@ class WeightController extends Controller
         return response(['status' => 'Reply deleted']);
     }
 
-    public function graphData()
+    /**
+     * Returns the graph data for the weight chart
+     *
+     * @param Weight $model Weight model
+     *
+     * @return Response
+     */
+    public function graphData(Weight $model): Response
     {
-        $data = Weight::select(DB::raw('DATE_FORMAT(created_at, "%d.%m.%Y") day, weight'))
-            ->orderBy('created_at')
-            ->where('user_id', auth()->id())
-            ->get()
-            ->pluck('weight', 'day');
-
-        return $data;
+        return response($model->getGraphData(), 200);
     }
 }
