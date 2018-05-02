@@ -1,5 +1,5 @@
 <template>
-    <canvas id="weight-chart-2" height="75"></canvas>
+    <canvas id="weight-chart" height="300"></canvas>
 </template>
 
 <script>
@@ -19,19 +19,20 @@
                 const max = Number.parseInt(input.maxWeight) + 2;
                 const step = Number.parseInt((max - min) / 10);
 
-                const canvas = document.querySelector('#weight-chart-2').getContext('2d');
+                const canvas = document.querySelector('#weight-chart').getContext('2d');
 
                 new Chart(canvas, {
                     type: 'line',
                     data: {
                         datasets: [{
-                            label: 'Gewicht',
+                            label: 'Gewichtsverlauf',
                             data: input.data,
                             lineTension: 0
                         }]
                     },
                     options: {
                         responsive: true,
+                        maintainAspectRatio: false,
                         scales: {
                             xAxes: [{
                                 type: 'time',

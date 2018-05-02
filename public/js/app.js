@@ -65912,19 +65912,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var max = Number.parseInt(input.maxWeight) + 2;
             var step = Number.parseInt((max - min) / 10);
 
-            var canvas = document.querySelector('#weight-chart-2').getContext('2d');
+            var canvas = document.querySelector('#weight-chart').getContext('2d');
 
             new __WEBPACK_IMPORTED_MODULE_0_chart_js___default.a(canvas, {
                 type: 'line',
                 data: {
                     datasets: [{
-                        label: 'Gewicht',
+                        label: 'Gewichtsverlauf',
                         data: input.data,
                         lineTension: 0
                     }]
                 },
                 options: {
                     responsive: true,
+                    maintainAspectRatio: false,
                     scales: {
                         xAxes: [{
                             type: 'time',
@@ -78436,7 +78437,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("canvas", { attrs: { id: "weight-chart-2", height: "75" } })
+  return _c("canvas", { attrs: { id: "weight-chart", height: "300" } })
 }
 var staticRenderFns = []
 render._withStripped = true
