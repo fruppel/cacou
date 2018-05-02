@@ -26,6 +26,7 @@
         },
 
         mounted() {
+            console.log(this.weights);
             this.items = this.weights;
         },
 

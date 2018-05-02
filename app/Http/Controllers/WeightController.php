@@ -21,9 +21,9 @@ class WeightController extends Controller
 
     public function index()
     {
-        $weights = Weight::all()
-            ->sortByDesc('created_at')
-            ->where('user_id', auth()->id());
+        $weights = Weight::where('user_id', auth()->id())
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return view('weight.index', compact('weights'));
     }
