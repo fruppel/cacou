@@ -65936,13 +65936,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                                 displayFormats: {
                                     day: 'DD.MM.YYYY'
                                 }
+                            },
+                            ticks: {
+                                autoSkip: true
                             }
                         }],
                         yAxes: [{
                             ticks: {
                                 min: min,
                                 max: max,
-                                stepSize: step
+                                stepSize: step,
+                                autoSkip: true
                             }
                         }]
                     }
