@@ -33,15 +33,12 @@ class CaloricRequirementCalculatorTest extends TestCase
      */
     public function it_calculates_the_correct_bmr_for_men()
     {
-        $user = factory(User::class)->create([
+        $user = $this->createUser([
             'gender' => 'male',
             'height' => 186,
             'birthdate' => '1986-06-01'
-        ]);
-
-        factory(Weight::class)->create([
-            'user_id' => $user->id,
-            'weight' => 86
+        ], [
+            'weight' => 86.0
         ]);
 
         $this->assertEquals(1918.185, $this->crc->calculate($user));
@@ -52,18 +49,14 @@ class CaloricRequirementCalculatorTest extends TestCase
      */
     public function it_calculates_the_correct_bmr_for_women()
     {
-        $user = factory(User::class)->create([
+        $user = $this->createUser([
             'gender' => 'female',
             'height' => 165,
             'birthdate' => '1992-02-03'
-        ]);
-
-        factory(Weight::class)->create([
-            'user_id' => $user->id,
-            'weight' => 72
+        ], [
+            'weight' => 72.0
         ]);
 
         $this->assertEquals(1490.675, $this->crc->calculate($user));
-
     }
 }

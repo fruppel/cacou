@@ -53,4 +53,12 @@ abstract class TestCase extends BaseTestCase
         $this->app->instance(ExceptionHandler::class, $this->oldExceptionHandler);
         return $this;
     }
+
+    protected function createUser(array $userAttributes = [], array $weightAttributes = [])
+    {
+        $user = factory(\App\User::class)->create($userAttributes);
+        factory(\App\Weight::class)->create(array_merge($weightAttributes, ['user_id' => $user->id]));
+
+        return $user;
+    }
 }

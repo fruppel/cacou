@@ -13,8 +13,7 @@ class ProfilesTest extends TestCase
     /** @test */
     public function a_user_has_a_profile_page()
     {
-        $user = factory(User::class)->create();
-        factory(Weight::class)->create(['user_id' => $user->id]);
+        $user = $this->createUser();
 
         $this->get(route('user.show', $user))
             ->assertStatus(200)
