@@ -65,6 +65,7 @@
         },
 
         mounted() {
+            Bus.$on('removedWeightRow', this.fetchData);
             this.fetchData();
         }
 

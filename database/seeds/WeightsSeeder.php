@@ -11,6 +11,8 @@ class WeightsSeeder extends Seeder
      * Runs the database seeds
      *
      * @return void
+     *
+     * @throws Exception
      */
     public function run()
     {
@@ -31,9 +33,12 @@ class WeightsSeeder extends Seeder
      * Clears all seeded data
      *
      * @return void
+     *
+     * @throws Exception
      */
     private function clear()
     {
+        /** @var \App\User $user */
         $user = App\User::where('email', self::EMAIL)->first();
 
         if (!$user) return;

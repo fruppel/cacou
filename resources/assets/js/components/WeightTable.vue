@@ -26,7 +26,6 @@
         },
 
         mounted() {
-            console.log(this.weights);
             this.items = this.weights;
         },
 
@@ -41,6 +40,7 @@
 
             remove(index) {
                 this.items.splice(index, 1);
+                Bus.$emit('removedWeightRow');
             }
         }
     }
