@@ -11,8 +11,9 @@
         methods: {
             action() {
                 if (confirm('Wirklich löschen?')) {
-                    axios.delete(this.url);
-                    this.$emit('deleted');
+                    axios.delete(this.url).then(() => {
+                        this.$emit('deleted');
+                    });
                 }
             }
         }

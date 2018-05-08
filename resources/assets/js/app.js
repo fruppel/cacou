@@ -19,6 +19,8 @@ Vue.component('weight-chart', require('./components/WeightChart.vue'));
 Vue.component('weight-table', require('./components/WeightTable.vue'));
 Vue.component('delete-weight', require('./components/DeleteWeight.vue'));
 
+window.Bus = new Vue();
+
 const app = new Vue({
     el: '#app'
 });

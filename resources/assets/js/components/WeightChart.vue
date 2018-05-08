@@ -1,15 +1,29 @@
 <template>
-    <canvas id="weight-chart" height="300"></canvas>
+    <div>
+        <div>
+            <canvas id="weight-chart" height="300"></canvas>
+        </div>
+        <div>
+            <div class="btn-group btn-group-sm btn-group-toggle" role="group" data-toggle="buttons">
+                <weight-filter @click.native="fetchData(0)">ALLE</weight-filter>
+                <weight-filter @click.native="fetchData(365)">1J</weight-filter>
+                <weight-filter @click.native="fetchData(180)" :active="true">6M</weight-filter>
+                <weight-filter @click.native="fetchData(30)">1M</weight-filter>
+                <weight-filter @click.native="fetchData(7)">1W</weight-filter>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
-    import Chart from 'chart.js';
+    Vue.component('weight-filter', require('./WeightFilter.vue'));
 
+    import Chart from 'chart.js';
 
     export default {
         methods: {
-            fetchData() {
-                axios.get('/graphData/1').then((response) => {
+            fetchData(days) {
+                axios.get('/graphData/' + days).then((response) => {
                     this.render(response.data);
                 });
             },
@@ -43,13 +57,17 @@
                                     displayFormats: {
                                         day: 'DD.MM.YYYY'
                                     }
+                                },
+                                ticks: {
+                                    autoSkip: true
                                 }
                             }],
                             yAxes: [{
                                 ticks: {
                                     min: min,
                                     max: max,
-                                    stepSize: step
+                                    stepSize: step,
+                                    autoSkip: true
                                 }
                             }]
                         }
@@ -61,7 +79,8 @@
         },
 
         mounted() {
-            this.fetchData();
+            Bus.$on('updateGraph', this.fetchData);
+            this.fetchData(180);
         }
 
     }

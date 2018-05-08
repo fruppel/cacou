@@ -69,11 +69,12 @@ class WeightController extends Controller
      * Returns the graph data for the weight chart
      *
      * @param Weight $model Weight model
+     * @param int $days Number of days (period)
      *
      * @return Response
      */
-    public function graphData(Weight $model): Response
+    public function graphData(Weight $model, int $days = 0): Response
     {
-        return response($model->getGraphData(), 200);
+        return response($model->getGraphData($days), 200);
     }
 }

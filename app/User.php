@@ -37,6 +37,15 @@ class User extends Authenticatable
         'birthdate'
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($user) {
+            $user->weights()->delete();
+        });
+    }
+
     public function getAgeAttribute()
     {
         return Carbon::parse($this->birthdate)->diffInYears();

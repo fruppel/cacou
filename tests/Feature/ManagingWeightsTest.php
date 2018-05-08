@@ -43,18 +43,14 @@ class ManagingWeightsTest extends TestCase
     /** @test */
     public function a_weight_entry_can_be_deleted()
     {
-        $user = factory(User::class)->create();
-
+        $user = $this->createUser();
         $this->actingAs($user);
 
-        $weight = factory(Weight::class)->create(['user_id' => $user->id]);
-        $allWeights = Weight::all();
+        $this->assertEquals(1, $user->weights()->count());
 
-        $this->assertEquals(1, $allWeights->count());
+        $this->delete('/weight/' . $user->id . '/' . $user->weights()->first()->id);
 
-        $this->delete('/weight/' . $user->id . '/' . $weight->id);
-
-        $this->assertEquals(0, Weight::all()->count());
+        $this->assertEquals(0, $user->weights()->count());
     }
 
     /** @test */
