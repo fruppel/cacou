@@ -9,7 +9,7 @@
     export default {
         methods: {
             fetchData() {
-                axios.get('/graphData/1').then((response) => {
+                axios.get('/graphData').then((response) => {
                     this.render(response.data);
                 });
             },
