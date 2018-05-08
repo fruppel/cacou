@@ -5,27 +5,19 @@
         </div>
         <div>
             <div class="btn-group btn-group-sm btn-group-toggle" role="group" data-toggle="buttons">
-                <label class="btn btn-outline-secondary" @click="fetchData(0)">
-                    <input type="radio" name="days" autocomplete="off"> ALLE
-                </label>
-                <label class="btn btn-outline-secondary" @click="fetchData(365)">
-                    <input type="radio" name="days" autocomplete="off"> 1J
-                </label>
-                <label class="btn btn-outline-secondary active" @click="fetchData(180)">
-                    <input type="radio" name="days" autocomplete="off"> 6M
-                </label>
-                <label class="btn btn-outline-secondary" @click="fetchData(30)">
-                    <input type="radio" name="days" autocomplete="off"> 1M
-                </label>
-                <label class="btn btn-outline-secondary" @click="fetchData(7)">
-                    <input type="radio" name="days" autocomplete="off"> 1W
-                </label>
+                <weight-filter @click.native="fetchData(0)">ALLE</weight-filter>
+                <weight-filter @click.native="fetchData(365)">1J</weight-filter>
+                <weight-filter @click.native="fetchData(180)" :active="true">6M</weight-filter>
+                <weight-filter @click.native="fetchData(30)">1M</weight-filter>
+                <weight-filter @click.native="fetchData(7)">1W</weight-filter>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    Vue.component('weight-filter', require('./WeightFilter.vue'));
+
     import Chart from 'chart.js';
 
     export default {
