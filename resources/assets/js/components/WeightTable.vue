@@ -40,7 +40,7 @@
 
             remove(index) {
                 this.items.splice(index, 1);
-                Bus.$emit('removedWeightRow');
+                Bus.$emit('updateGraph');
             }
         }
     }

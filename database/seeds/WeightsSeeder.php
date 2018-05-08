@@ -24,7 +24,7 @@ class WeightsSeeder extends Seeder
             'password' => bcrypt('asdasd'),
         ]);
 
-        factory(App\Weight::class, 20)->create([
+        factory(App\Weight::class, 100)->create([
             'user_id' => $user->id
         ]);
     }

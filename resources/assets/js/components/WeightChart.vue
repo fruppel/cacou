@@ -1,15 +1,37 @@
 <template>
-    <canvas id="weight-chart" height="300"></canvas>
+    <div>
+        <div>
+            <canvas id="weight-chart" height="300"></canvas>
+        </div>
+        <div>
+            <div class="btn-group btn-group-sm btn-group-toggle" role="group" data-toggle="buttons">
+                <label class="btn btn-outline-secondary" @click="fetchData(0)">
+                    <input type="radio" name="days" autocomplete="off"> ALLE
+                </label>
+                <label class="btn btn-outline-secondary" @click="fetchData(365)">
+                    <input type="radio" name="days" autocomplete="off"> 1J
+                </label>
+                <label class="btn btn-outline-secondary active" @click="fetchData(180)">
+                    <input type="radio" name="days" autocomplete="off"> 6M
+                </label>
+                <label class="btn btn-outline-secondary" @click="fetchData(30)">
+                    <input type="radio" name="days" autocomplete="off"> 1M
+                </label>
+                <label class="btn btn-outline-secondary" @click="fetchData(7)">
+                    <input type="radio" name="days" autocomplete="off"> 1W
+                </label>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
     import Chart from 'chart.js';
 
-
     export default {
         methods: {
-            fetchData() {
-                axios.get('/graphData').then((response) => {
+            fetchData(days) {
+                axios.get('/graphData/' + days).then((response) => {
                     this.render(response.data);
                 });
             },
@@ -65,8 +87,8 @@
         },
 
         mounted() {
-            Bus.$on('removedWeightRow', this.fetchData);
-            this.fetchData();
+            Bus.$on('updateGraph', this.fetchData);
+            this.fetchData(180);
         }
 
     }

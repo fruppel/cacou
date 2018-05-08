@@ -65769,15 +65769,38 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     methods: {
-        fetchData: function fetchData() {
+        fetchData: function fetchData(days) {
             var _this = this;
 
-            axios.get('/graphData').then(function (response) {
+            axios.get('/graphData/' + days).then(function (response) {
                 _this.render(response.data);
             });
         },
@@ -65830,8 +65853,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     mounted: function mounted() {
-        Bus.$on('removedWeightRow', this.fetchData);
-        this.fetchData();
+        Bus.$on('updateGraph', this.fetchData);
+        this.fetchData(180);
     }
 });
 
@@ -78444,9 +78467,121 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("canvas", { attrs: { id: "weight-chart", height: "300" } })
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", [
+      _c(
+        "div",
+        {
+          staticClass: "btn-group btn-group-sm btn-group-toggle",
+          attrs: { role: "group", "data-toggle": "buttons" }
+        },
+        [
+          _c(
+            "label",
+            {
+              staticClass: "btn btn-outline-secondary",
+              on: {
+                click: function($event) {
+                  _vm.fetchData(0)
+                }
+              }
+            },
+            [
+              _c("input", {
+                attrs: { type: "radio", name: "days", autocomplete: "off" }
+              }),
+              _vm._v(" ALLE\n            ")
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "label",
+            {
+              staticClass: "btn btn-outline-secondary",
+              on: {
+                click: function($event) {
+                  _vm.fetchData(365)
+                }
+              }
+            },
+            [
+              _c("input", {
+                attrs: { type: "radio", name: "days", autocomplete: "off" }
+              }),
+              _vm._v(" 1J\n            ")
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "label",
+            {
+              staticClass: "btn btn-outline-secondary active",
+              on: {
+                click: function($event) {
+                  _vm.fetchData(180)
+                }
+              }
+            },
+            [
+              _c("input", {
+                attrs: { type: "radio", name: "days", autocomplete: "off" }
+              }),
+              _vm._v(" 6M\n            ")
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "label",
+            {
+              staticClass: "btn btn-outline-secondary",
+              on: {
+                click: function($event) {
+                  _vm.fetchData(30)
+                }
+              }
+            },
+            [
+              _c("input", {
+                attrs: { type: "radio", name: "days", autocomplete: "off" }
+              }),
+              _vm._v(" 1M\n            ")
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "label",
+            {
+              staticClass: "btn btn-outline-secondary",
+              on: {
+                click: function($event) {
+                  _vm.fetchData(7)
+                }
+              }
+            },
+            [
+              _c("input", {
+                attrs: { type: "radio", name: "days", autocomplete: "off" }
+              }),
+              _vm._v(" 1W\n            ")
+            ]
+          )
+        ]
+      )
+    ])
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("canvas", { attrs: { id: "weight-chart", height: "300" } })
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -78551,7 +78686,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         remove: function remove(index) {
             this.items.splice(index, 1);
-            Bus.$emit('removedWeightRow');
+            Bus.$emit('updateGraph');
         }
     }
 });
