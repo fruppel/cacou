@@ -11,3 +11,5 @@ Route::get('/weight/{user}', 'WeightController@index');
 Route::post('/weight/{user}', 'WeightController@store');
 Route::delete('/weight/{user}/{weight}', 'WeightController@destroy');
 Route::get('/graphData/{days}', 'WeightController@graphData')->middleware('auth');
+Route::get('/diary', 'DiaryController@index');
+Route::post('/diary', 'DiaryController@store');
