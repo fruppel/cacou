@@ -36,6 +36,9 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto mt-1">
                         @if (auth()->check())
+                            <li class="{{ \Illuminate\Support\Facades\Request::is('diary') ? 'active' : '' }}">
+                                <a class="nav-link " href="/diary">Tagebuch</a>
+                            </li>
                             <li class="{{ \Illuminate\Support\Facades\Request::is('weight/' . auth()->id()) ? 'active' : '' }}">
                                 <a class="nav-link " href="/weight/{{ auth()->id() }}">Gewicht</a>
                             </li>
