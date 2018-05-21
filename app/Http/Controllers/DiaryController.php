@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Diary;
+use Carbon\Carbon;
 
 class DiaryController extends Controller
 {
@@ -13,9 +14,9 @@ class DiaryController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(string $date)
     {
-        return view('diary.index');
+        return view('diary.index', compact('date'));
     }
 
     public function store()

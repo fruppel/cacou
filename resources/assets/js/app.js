@@ -18,6 +18,7 @@ window.Vue = require('vue');
 Vue.component('weight-chart', require('./components/WeightChart.vue'));
 Vue.component('weight-table', require('./components/WeightTable.vue'));
 Vue.component('delete-weight', require('./components/DeleteWeight.vue'));
+Vue.component('date-nav', require('./components/DateNav.vue'));
 
 window.Bus = new Vue();
 

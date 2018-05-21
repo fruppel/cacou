@@ -13,6 +13,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/font-awesome.js') }}" defer></script>
+    @yield('scripts')
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -20,6 +21,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @yield('stylesheets')
 </head>
 <body>
     <div id="app">
@@ -37,7 +39,7 @@
                     <ul class="navbar-nav mr-auto mt-1">
                         @if (auth()->check())
                             <li class="{{ \Illuminate\Support\Facades\Request::is('diary') ? 'active' : '' }}">
-                                <a class="nav-link " href="/diary">Tagebuch</a>
+                                <a class="nav-link " href="/diary/{{ \Carbon\Carbon::now()->format('Y-m-d') }}">Tagebuch</a>
                             </li>
                             <li class="{{ \Illuminate\Support\Facades\Request::is('weight/' . auth()->id()) ? 'active' : '' }}">
                                 <a class="nav-link " href="/weight/{{ auth()->id() }}">Gewicht</a>
